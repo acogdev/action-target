@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="/css/style.css" type="text/css" rel="stylesheet">
+    <!-- <meta http-equiv="refresh" content="5">  -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#stats').DataTable(
+                {
+                    ajax: {
+                        url: '/stats',
+                        dataSrc: ''
+                    },
+                    columns: [{ data: 'host' },
+                    { data: 'up' },
+                    { data: 'sent' },
+                    { data: 'received' },
+                    { data: 'packetLoss' },
+                    { data: 'minTime' },
+                    { data: 'maxTime' },
+                    { data: 'average' }
+                    ]
+                }
+            );
+            setInterval(function () {
+                table.ajax.reload(null, false); // user paging is not reset on reload
+            }, 3000);
+        });
+
+
+
+    </script>
+
+</head>
+
+<body>
+    <h1>Stats</h1>
+    <table id="stats" class="display">
+        <thead>
+            <tr>
+                <th>Host</th>
+                <th>Is Up</th>
+                <th>Sent</th>
+                <th>Received</th>
+                <th>Packet Loss</th>
+                <th>Minimum Response</th>
+                <th>Maximum Response</th>
+                <th>Average Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{range $host, $stat := .}}
+            <tr>
+                <td>{{$host}}</td>
+                <td>{{$stat.Up}}</td>
+                <td>{{$stat.Sent}}</td>
+                <td>{{$stat.Received}}</td>
+                <td>{{$stat.GetPacketLoss}}</td>
+                <td>{{$stat.MinTime}}</td>
+                <td>{{$stat.MaxTime}}</td>
+                <td>{{$stat.GetAverage}}</td>
+            </tr>
+            {{end}}
+        </tbody>
+    </table>
+</body>
+
+</html>
