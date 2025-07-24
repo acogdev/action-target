@@ -1,0 +1,4 @@
+
+hosts = ["google.com"]
+port = 80
+interval = 5

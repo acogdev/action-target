@@ -1,0 +1,11 @@
+[Unit]
+Description=Monitor services via TCP connections
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/action-target/action-target --config /etc/action-target/config.toml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

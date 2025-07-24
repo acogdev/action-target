@@ -11,7 +11,7 @@ To run just the tests run `make test`.
 
 To run just the build run `make build`.
 
-To install as a systemd service run `make install`.
+To install as a systemd service first modify the example `config.toml` to match the services that you want to monitor and then run `make install` (may require `sudo`).
 
 Once the binary has been built the program can be run like this:
 ```sh

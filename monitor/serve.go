@@ -6,10 +6,14 @@ import (
 	"html/template"
 	"net/http"
 	"time"
+	"embed"
 )
 
+//go:embed templates/*
+var content embed.FS
+
 func (s *Serve) renderStats(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("monitor/layout.html"))
+	tmpl := template.Must(template.ParseFS(content, "templates/layout.html"))
 	tmpl.Execute(w, s.CurrentStats)
 }
 
