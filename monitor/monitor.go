@@ -3,6 +3,7 @@ package monitor
 import (
 	"fmt"
 	"net"
+	"strconv"
 	"time"
 )
 
@@ -17,15 +18,22 @@ func isHostUp(host string, port string, timeout time.Duration, stat *Stats) {
 		defer conn.Close()
 	}
 	stat.addResult(success, duration)
-	printSummary(stat)
 }
 
-func Monitor(hosts []string, port string, interval int) {
-	fmt.Println("called the monitor code with ", hosts, port, interval)
+func Monitor(hosts []string, port string, interval int, configFile string) {
 	timeout := 2 * time.Second
 
-	var currentStats = make(map[string]*Stats)
+	if len(configFile) > 1 {
+		fmt.Printf("Using values from %s\n", configFile)
+		config := ReadConfig(configFile)
+		hosts = config.Hosts
+		port = strconv.Itoa(config.Port)
+		interval = config.Interval
+	}
 
+	fmt.Printf("The following services will checked every %v seconds on port %s: %s ", interval, port, hosts)
+
+	var currentStats = make(map[string]*Stats)
 	for _, host := range hosts {
 		currentStats[host] = &Stats{Host: host}
 	}

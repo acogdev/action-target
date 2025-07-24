@@ -22,7 +22,7 @@ action-target --hosts host1,host2,host3 -p 8080 -i 5
 
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		monitor.Monitor(Hosts, Port, Interval)
+		monitor.Monitor(Hosts, Port, Interval, ConfigFile)
 	},
 }
 
@@ -38,14 +38,12 @@ func Execute() {
 var Hosts []string
 var Port string
 var Interval int
+var ConfigFile string
 
 func init() {
 
-	rootCmd.Flags().StringSliceVar(&Hosts, "hosts", []string{""}, "List of hosts to monitor in format host1,host2,host3")
-	rootCmd.MarkFlagRequired("hosts")
-
+	rootCmd.Flags().StringSliceVar(&Hosts, "hosts", nil, "List of hosts to monitor in format host1,host2,host3")
 	rootCmd.Flags().StringVarP(&Port, "port", "p", "80", "Port of hosts")
-
 	rootCmd.Flags().IntVarP(&Interval, "interval", "i", 5, "Interval to run checks in seconds")
-	rootCmd.MarkFlagRequired("interval")
+	rootCmd.Flags().StringVarP(&ConfigFile, "config", "c", "", "Path to config file")
 }

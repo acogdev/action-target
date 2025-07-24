@@ -4,4 +4,7 @@ build:
 	go build
 
 test:
-	@echo "Need to write tests"
+	go test ./...
+
+install:
+	@echo "Still need to write the systemd unit file"

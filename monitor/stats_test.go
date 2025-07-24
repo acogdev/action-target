@@ -6,7 +6,7 @@ import (
 )
 
 func TestAddResult(t *testing.T) {
-	stats := &Stats{host: "example.com"}
+	stats := &Stats{Host: "example.com"}
 
 	// Test successful result
 	duration := 100 * time.Millisecond
@@ -59,7 +59,7 @@ func TestAddResult(t *testing.T) {
 }
 
 func TestAddResult_MinMaxTracking(t *testing.T) {
-	stats := &Stats{host: "example.com"}
+	stats := &Stats{Host: "example.com"}
 
 	durations := []time.Duration{
 		150 * time.Millisecond,
@@ -84,7 +84,7 @@ func TestAddResult_MinMaxTracking(t *testing.T) {
 }
 
 func TestGetAverage(t *testing.T) {
-	stats := &Stats{host: "example.com"}
+	stats := &Stats{Host: "example.com"}
 
 	// Test with no received packets
 	avg := stats.GetAverage()
@@ -118,7 +118,7 @@ func TestGetAverage(t *testing.T) {
 
 
 func TestGetPacketLoss(t *testing.T) {
-	stats := &Stats{host: "example.com"}
+	stats := &Stats{Host: "example.com"}
 
 	// Test with no packets sent
 	loss := stats.GetPacketLoss()
@@ -144,7 +144,7 @@ func TestGetPacketLoss(t *testing.T) {
 	}
 
 	// Test with 100% packet loss
-	statsAllFailed := &Stats{host: "example.com"}
+	statsAllFailed := &Stats{Host: "example.com"}
 	statsAllFailed.addResult(false, 100*time.Millisecond)
 	statsAllFailed.addResult(false, 200*time.Millisecond)
 	loss = statsAllFailed.GetPacketLoss()

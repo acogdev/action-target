@@ -3,4 +3,4 @@
 - style?
 - charts?
 - error handling
-- logging
+- logging instead of print

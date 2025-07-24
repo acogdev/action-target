@@ -1,7 +1,6 @@
 package monitor
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -45,17 +44,4 @@ func (s *Stats) GetPacketLoss() float64 {
 		return 0
 	}
 	return float64(s.Sent-s.Received) / float64(s.Sent) * 100
-}
-
-func printSummary(stats *Stats) {
-	fmt.Printf("\n Host: %s ", stats.Host)
-	fmt.Printf("sent: %d received: %d packet loss: %.1f%%  ", stats.Sent, stats.Received, stats.GetPacketLoss())
-	if stats.Received > 0 {
-		fmt.Printf("min: %v avg: %v max: %v\n",
-			stats.MinTime.Truncate(time.Microsecond),
-			stats.GetAverage().Truncate(time.Microsecond),
-			stats.MaxTime.Truncate(time.Microsecond))
-	} else {
-		fmt.Printf("\n")
-	}
 }
