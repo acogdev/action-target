@@ -1,7 +1,7 @@
 package monitor
 
 import (
-	"fmt"
+	"log"
 	"net"
 	"strconv"
 	"time"
@@ -24,14 +24,14 @@ func Monitor(hosts []string, port string, interval int, configFile string) {
 	timeout := 2 * time.Second
 
 	if len(configFile) > 1 {
-		fmt.Printf("Using values from %s\n", configFile)
+		log.Printf("Using values from %s\n", configFile)
 		config := ReadConfig(configFile)
 		hosts = config.Hosts
 		port = strconv.Itoa(config.Port)
 		interval = config.Interval
 	}
 
-	fmt.Printf("The following services will checked every %v seconds on port %s: %s ", interval, port, hosts)
+	log.Printf("The following services will checked every %v seconds on port %s: %s ", interval, port, hosts)
 
 	var currentStats = make(map[string]*Stats)
 	for _, host := range hosts {
