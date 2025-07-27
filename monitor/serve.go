@@ -61,7 +61,6 @@ func (s *Serve) health(w http.ResponseWriter, r *http.Request) {
 func (s *Serve) Serve() {
 	http.HandleFunc("/", s.renderStats)
 	http.HandleFunc("/stats", s.Stats)
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./public/css"))))
 	http.HandleFunc("/health", s.health)
 	http.ListenAndServe(":8080", nil)
 }
