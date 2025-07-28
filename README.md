@@ -45,3 +45,7 @@ I decided to use the [datatables](https://datatables.net) javascript project for
 ### Structure / Layout
 I followed the layout of several other projects that use `cobra`, partly because I'm new to both `go` and `cobra` and because it seemed to be a good way of laying the files out.
 
+### Next steps
+Right now this works as a live indicator of the current state, but needs some daya storage.
+I would like to get the data into a time series data base like Prometheus and then use that to create charts that span time periods.
+The I would also like to see a Grafana dashboard created to query Prometheus as well, create allery and create dashboards. 
